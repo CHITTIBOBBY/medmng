@@ -606,7 +606,7 @@ body {
     box-shadow: var(--shadow-lg);
     transition: var(--transition);
     animation: fadeInUp 0.8s ease-out;
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 4 / 5;
 }
 
 @keyframes fadeInUp {
@@ -644,6 +644,7 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center top;
     transition: var(--transition);
     display: block;
 }
@@ -1264,6 +1265,12 @@ body {
     .leadership-grid {
         grid-template-columns: 1fr;
         gap: 40px;
+        justify-items: center;
+    }
+
+    .leader-card {
+        width: 100%;
+        max-width: 420px;
     }
 
     .services-grid {
