@@ -595,14 +595,20 @@ body {
     z-index: 1;
 }
 
+/* ========================================
+   LEADER CARD (RESPONSIVE PROFILE CARDS)
+   ======================================== */
+
 .leader-card {
-    background: transparent;
+    position: relative;
     border-radius: 20px;
     overflow: hidden;
+    box-shadow: var(--shadow-lg);
     transition: var(--transition);
     animation: fadeInUp 0.8s ease-out;
-    position: relative;
-    height: 100%;
+    height: 0;
+    padding-bottom: 100%;
+    /* This creates a 1:1 aspect ratio container */
 }
 
 @keyframes fadeInUp {
@@ -616,10 +622,6 @@ body {
     }
 }
 
-.leader-card:hover {
-    transform: translateY(-12px);
-}
-
 .founder-card {
     animation-delay: 0.1s;
 }
@@ -628,14 +630,30 @@ body {
     animation-delay: 0.2s;
 }
 
+.leader-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 30px 80px rgba(31, 53, 104, 0.25);
+}
+
+/* Inner container for absolute positioning */
+.leader-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+}
+
 .leader-image-wrapper {
-    position: relative;
-    overflow: hidden;
-    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    min-height: 500px;
-    border-radius: 20px;
-    box-shadow: var(--shadow-lg);
+    height: 100%;
+    overflow: hidden;
+    z-index: 0;
 }
 
 .leader-photo {
@@ -650,19 +668,21 @@ body {
     transform: scale(1.05);
 }
 
+/* Badge - positioned at top */
 .leader-badge {
     position: absolute;
     top: 20px;
     right: 20px;
-    padding: 8px 20px;
+    padding: 8px 18px;
     border-radius: 50px;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.8px;
     text-transform: uppercase;
     backdrop-filter: blur(10px);
     box-shadow: var(--shadow-md);
-    z-index: 2;
+    z-index: 3;
+    transition: var(--transition);
 }
 
 .founder-badge {
@@ -675,146 +695,59 @@ body {
     color: white;
 }
 
+.leader-badge:hover {
+    transform: scale(1.05);
+}
+
+/* Content overlay at bottom - minimal height */
 .leader-content {
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
-    padding: 40px 36px;
+    padding: 24px 28px;
     background: rgba(255, 255, 255, 0.4);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(12px);
     border-top: 1px solid rgba(255, 255, 255, 0.5);
     transition: var(--transition);
-    z-index: 3;
+    z-index: 2;
 }
 
 .leader-card:hover .leader-content {
     background: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(14px);
 }
 
+/* Name styling */
 .leader-name {
     font-family: 'Poppins', sans-serif;
-    font-size: 32px;
+    font-size: 20px;
     font-weight: 800;
     color: var(--primary-dark);
-    margin-bottom: 12px;
+    margin: 0;
     line-height: 1.2;
 }
 
+/* Designation styling */
 .leader-designation {
     font-family: 'Poppins', sans-serif;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 700;
     color: var(--accent-blue);
     text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 20px;
-    display: inline-block;
-}
-
-.leader-bio {
-    font-size: 15px;
-    color: var(--text-dark);
-    line-height: 1.8;
-    margin-bottom: 24px;
-}
-
-.leader-quote {
-    font-size: 16px;
-    font-style: italic;
-    color: var(--primary-dark);
-    padding: 20px;
-    border-left: 4px solid var(--accent-blue);
-    background: rgba(255, 255, 255, 0.6);
-    border-radius: 8px;
-    transition: var(--transition);
-}
-
-.leader-card:hover .leader-quote {
-    border-left-color: var(--primary-dark);
-    background: rgba(255, 255, 255, 0.8);
-    transform: translateX(4px);
-}
-
-/* ========================================
-   FOUNDER SECTION (LEGACY)
-   ======================================== */
-
-.founder-section {
-    padding: 120px 0;
-    background: white;
-    position: relative;
-}
-
-.founder-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: center;
-}
-
-.founder-image {
-    position: relative;
-    text-align: center;
-}
-
-.founder-photo {
-    width: 100%;
-    max-width: 400px;
-    height: auto;
-    border-radius: 20px;
-    box-shadow: 0 20px 60px rgba(31, 53, 104, 0.25);
-    transition: var(--transition);
-    object-fit: cover;
-}
-
-.founder-photo:hover {
-    transform: translateY(-12px);
-    box-shadow: 0 30px 80px rgba(31, 53, 104, 0.35);
-}
-
-.founder-title {
-    font-family: 'Poppins', sans-serif;
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--accent-blue);
-    text-transform: uppercase;
-    letter-spacing: 1.2px;
-    margin-bottom: 16px;
-}
-
-.founder-name {
-    font-family: 'Poppins', sans-serif;
-    font-size: 40px;
-    font-weight: 800;
-    color: var(--primary-dark);
-    margin-bottom: 24px;
+    letter-spacing: 0.8px;
+    margin: 8px 0 0 0;
+    display: block;
     line-height: 1.2;
 }
 
-.founder-bio {
-    font-size: 16px;
-    color: var(--text-light);
-    line-height: 1.8;
-    margin-bottom: 32px;
-}
-
-.founder-quote {
-    font-size: 18px;
-    font-style: italic;
-    color: var(--primary-dark);
-    padding: 32px;
-    border-left: 5px solid var(--accent-blue);
-    background: linear-gradient(135deg, var(--bg-light) 0%, #ffffff 100%);
-    border-radius: 12px;
-    box-shadow: var(--shadow-md);
-    transition: var(--transition);
-}
-
-.founder-quote:hover {
-    transform: translateX(8px);
-    box-shadow: var(--shadow-lg);
+/* Bio styling - only show on larger screens */
+.leader-bio {
+    display: none;
+    font-size: 14px;
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin-top: 12px;
 }
 
 /* ========================================
@@ -1418,22 +1351,15 @@ body {
    RESPONSIVE DESIGN
    ======================================== */
 
+/* Tablet - 768px to 1024px */
 @media (max-width: 1024px) {
-    .hero-content,
-    .about-content,
-    .leadership-grid,
-    .founder-content,
-    .contact-content {
+    .leadership-grid {
         grid-template-columns: 1fr;
         gap: 40px;
     }
 
     .section-title {
         font-size: 36px;
-    }
-
-    .hero-headline {
-        font-size: 40px;
     }
 
     .services-grid {
@@ -1448,11 +1374,22 @@ body {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    .leader-image-wrapper {
-        min-height: 400px;
+    /* Leadership cards - larger on tablet */
+    .leader-card {
+        max-width: 500px;
+        margin: 0 auto;
+    }
+
+    .leader-name {
+        font-size: 22px;
+    }
+
+    .leader-designation {
+        font-size: 11px;
     }
 }
 
+/* Mobile Landscape & Small Tablets - 768px and below */
 @media (max-width: 768px) {
     .navbar {
         padding: 0.8rem 0;
@@ -1489,6 +1426,11 @@ body {
         margin-top: 60px;
     }
 
+    .hero-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
     .hero-headline {
         font-size: 32px;
     }
@@ -1502,22 +1444,14 @@ body {
     }
 
     .about-content,
-    .leadership-grid,
     .founder-content,
     .contact-content {
+        grid-template-columns: 1fr;
         gap: 30px;
     }
 
-    .leader-name {
-        font-size: 24px;
-    }
-
-    .leader-content {
-        padding: 30px 24px;
-    }
-
-    .leader-image-wrapper {
-        min-height: 300px;
+    .services-grid {
+        grid-template-columns: 1fr;
     }
 
     .footer-content {
@@ -1528,8 +1462,27 @@ body {
     .impact-grid {
         grid-template-columns: 1fr;
     }
+
+    /* Leadership cards - responsive sizing */
+    .leader-card {
+        padding-bottom: 100%;
+        max-width: 100%;
+    }
+
+    .leader-name {
+        font-size: 18px;
+    }
+
+    .leader-designation {
+        font-size: 10px;
+    }
+
+    .leader-content {
+        padding: 20px 24px;
+    }
 }
 
+/* Mobile - 480px and below */
 @media (max-width: 480px) {
     .container {
         padding: 0 15px;
@@ -1581,29 +1534,34 @@ body {
         grid-template-columns: 1fr;
     }
 
-    .leadership-grid,
-    .founder-content {
+    .leadership-grid {
         gap: 30px;
     }
 
+    /* Leadership cards - optimal for mobile */
+    .leader-card {
+        padding-bottom: 120%;
+        /* Slightly taller on mobile for better text readability */
+    }
+
     .leader-name {
-        font-size: 20px;
+        font-size: 16px;
     }
 
     .leader-designation {
-        font-size: 12px;
-    }
-
-    .leader-bio {
-        font-size: 14px;
-    }
-
-    .leader-image-wrapper {
-        min-height: 250px;
+        font-size: 9px;
+        margin-top: 6px;
     }
 
     .leader-content {
-        padding: 24px 20px;
+        padding: 18px 20px;
+    }
+
+    .leader-badge {
+        top: 12px;
+        right: 12px;
+        padding: 6px 14px;
+        font-size: 10px;
     }
 
     .services-grid {
@@ -1629,5 +1587,37 @@ body {
 
     .footer-content {
         grid-template-columns: 1fr;
+    }
+
+    .impact-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Small Mobile - 360px and below */
+@media (max-width: 360px) {
+    .hero-headline {
+        font-size: 20px;
+    }
+
+    .section-title {
+        font-size: 20px;
+    }
+
+    .leader-name {
+        font-size: 14px;
+    }
+
+    .leader-card {
+        padding-bottom: 130%;
+    }
+
+    .leader-content {
+        padding: 16px 18px;
+    }
+
+    .leader-badge {
+        padding: 5px 12px;
+        font-size: 9px;
     }
 }
